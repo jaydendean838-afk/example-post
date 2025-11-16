@@ -1,21 +1,13 @@
 import { ReferrerEnum } from 'next/dist/lib/metadata/types/metadata-types';
 import { useEffect } from 'react';
 
-interface PostProps {
-    posttitle: string;
-    postcontent: string;
-    postname: string;
-    firstname: string;
-    email: string;
-    date: string
-}
 
 interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
     children: React.ReactNode;
-    post: PostProps
 }
+
 
 export default function Modal({ isOpen, onClose, post }: ModalProps) {
     useEffect(() => {
