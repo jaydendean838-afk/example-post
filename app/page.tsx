@@ -1,32 +1,41 @@
 'use client'
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import PostCard from "./postcard";
 import { PostList } from "./postlist";
 import SearchBar from './searchBar';
 import Modal from './modal';
+import { Post } from './login/page';
+
+
 
 const POSTS_PER_PAGE = 5;
 
 export default function Home() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedPost, setSelectedPost] = useState(null);
-  const filteredPosts = useMemo(() => {
-    if (!searchTerm.trim()) return PostList;
 
-    return PostList.filter(post =>
-      post.posttitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.postcontent.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.postname.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [searchTerm]);
+  useEffect(() => {
+    fetch("https://api-post-feed.onrender.com/api/posts?page=1&limit=10")
+      .then(postResponse => postResponse.json())
+      .then(data => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error', error);
+        setLoading(false);
+      });
+  }, []);
 
-  const indexOfLastPost = currentPage * POSTS_PER_PAGE;
-  const indexOfFirstPost = indexOfLastPost - POSTS_PER_PAGE;
-  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
-  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+
+  if (loading) return <div>Loading....</div>
+
+
 
   const handlepostClick = (post: any) => {
     setIsOpen(true);
@@ -47,7 +56,7 @@ export default function Home() {
         </div>
         <div className="flex items-center space-x-4">
           <a className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors" href="/myposts">My Posts</a>
-          <a className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors" href="/createpost">Create Post</a>
+          <a className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors" href="/posts">Create Post</a>
           <button className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors">Logout</button>
         </div></div><div className="relative mb-6">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -62,8 +71,8 @@ export default function Home() {
       </div>
       <div className="grid gap-6">
         {
-          filteredPosts.length > 0 ? (
-            currentPosts.map(post => (
+          data.posts.length > 0 ? (
+            data.posts.map((post: Post) => (
               <PostCard
                 key={post.id}
                 post={post}
@@ -86,27 +95,23 @@ export default function Home() {
         <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
           <div>
             <p className="text-gray-600">
-              Showing {filteredPosts.length} of {PostList.length} posts
+              Showing {data.length} of {data.length} posts
             </p>
           </div>
         </div>
       </div>
       <div className="flex justify-center items-center space-x-2">
         <button
-          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-          disabled={currentPage === 1}
           className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
         >
           Previous
         </button>
 
         <span className="px-4">
-          Page {currentPage} of {totalPages}
+          Page {currentPage} of
         </span>
 
         <button
-          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-          disabled={currentPage === totalPages}
           className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
         >
           Next
