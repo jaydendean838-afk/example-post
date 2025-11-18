@@ -10,15 +10,14 @@ interface AuthorProps {
 interface PostProps {
     title: string;
     body: string;
-    createAt: string;
-    author: AuthorProps
+    createAt?: string;
+    author?: AuthorProps;
 }
 
 interface PostCardProps {
-    post: PostProps;
+    post: PostProps
     handleClick: () => void;
 }
-
 function PostCard({ post, handleClick }: PostCardProps) {
     return (
         <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer" onClick={handleClick}>
@@ -30,8 +29,8 @@ function PostCard({ post, handleClick }: PostCardProps) {
                         <span className="text-blue-600 text-xs font-bold">P</span>
                     </div>
                     <div>
-                        <span className="text-gray-600 text-sm font-medium">{post.author.firstname} {post.author.lastname}</span>
-                        <p className="text-gray-500 text-xs">{post.author.username}</p>
+                        <span className="text-gray-600 text-sm font-medium">{post.author?.firstname} {post.author?.lastname}</span>
+                        <p className="text-gray-500 text-xs">{post.author?.username}</p>
                     </div>
 
                 </div>

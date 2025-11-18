@@ -7,12 +7,16 @@ import SearchBar from './searchBar';
 import Modal from './modal';
 import { Post } from './login/page';
 
+interface ApiData {
+  posts: Post[];
+}
+
 
 
 const POSTS_PER_PAGE = 5;
 
 export default function Home() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<ApiData>({ posts: [] });
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -95,7 +99,7 @@ export default function Home() {
         <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
           <div>
             <p className="text-gray-600">
-              Showing {data.length} of {data.length} posts
+              Showing {data.posts.length} of {data.posts.length} posts
             </p>
           </div>
         </div>
