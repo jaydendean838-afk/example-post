@@ -1,6 +1,5 @@
 "use client"
 
-import axios from 'axios';
 export interface Post {
     id: number;
     title: string;
@@ -30,7 +29,6 @@ export default function login() {
             });
 
             const loginResult = await loginResponse.json();
-
             if (!loginResponse.ok) {
                 throw new Error('Failed to create user');
             }

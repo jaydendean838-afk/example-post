@@ -11,8 +11,13 @@ interface AuthorProps {
 interface PostProps {
     title: string;
     body: string;
-    createAt: string;
-    author: AuthorProps
+    createdAt: string;
+    author: {
+        firstName: string;
+        lastName: string;
+        username: string;
+
+    }
 }
 
 interface ModalProps {
@@ -74,14 +79,14 @@ export default function Modal({ isOpen, onClose, post }: ModalProps) {
                         <div className="space-y-2">
                             <div className="flex items-center">
                                 <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                                    <span className="text-blue-600 text-sm font-bold">p</span>
+                                    <span className="text-blue-600 text-sm font-bold">{post.author.lastName.at(0)}</span>
                                 </div>
                                 <div>
-                                    <p className="font-medium text-gray-800">{post.author.firstname} {post.author.lastname}</p>
-                                    <p className="text-sm text-gray-600">@{post.author.lastname}</p>
+                                    <p className="font-medium text-gray-800">{post.author.firstName} {post.author.lastName}</p>
+                                    <p className="text-sm text-gray-600">@  {post.author.lastName}</p>
                                 </div>
                             </div>
-                            <p className="text-sm text-gray-500" id='date'>Posted on {post.createAt}
+                            <p className="text-sm text-gray-500" id='date'>Posted on {post.createdAt}
                             </p>
                         </div>
                     </div>

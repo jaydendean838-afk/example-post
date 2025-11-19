@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 
 interface AuthorProps {
-    firstname: string;
-    lastname: string;
+    firstName: string;
+    lastName: string;
     username: string;
 
 }
@@ -29,7 +29,7 @@ function PostCard({ post, handleClick }: PostCardProps) {
                         <span className="text-blue-600 text-xs font-bold">P</span>
                     </div>
                     <div>
-                        <span className="text-gray-600 text-sm font-medium">{post.author?.firstname} {post.author?.lastname}</span>
+                        <span className="text-gray-600 text-sm font-medium">{post.author?.firstName} {post.author?.lastName}</span>
                         <p className="text-gray-500 text-xs">{post.author?.username}</p>
                     </div>
 

@@ -12,7 +12,6 @@ interface ApiData {
 }
 
 
-
 const POSTS_PER_PAGE = 5;
 
 export default function Home() {
@@ -45,7 +44,7 @@ export default function Home() {
     setIsOpen(true);
     setSelectedPost(post);
   }
-  console.log("seleted", selectedPost)
+  console.log("seleted", selectedPost);
 
   const handleCloseClick = () => {
     setIsOpen(false);
@@ -59,8 +58,8 @@ export default function Home() {
           <p className="text-gray-600">Welcome back, <span className="font-semibold">tom jerry</span>!</p>
         </div>
         <div className="flex items-center space-x-4">
-          <a className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors" href="/myposts">My Posts</a>
-          <a className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors" href="/posts">Create Post</a>
+          <a className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors" href="/my-posts">My Posts</a>
+          <a className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors" href="/create-post">Create Post</a>
           <button className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors">Logout</button>
         </div></div><div className="relative mb-6">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
